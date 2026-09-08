@@ -1,0 +1,24 @@
+{
+  "name": "NexusProvision Cloud Environment",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "forwardPorts": [8000, 5173],
+  "portsAttributes": {
+    "8000": {
+      "label": "FastAPI Backend & Swagger Docs",
+      "onAutoForward": "openBrowser"
+    },
+    "5173": {
+      "label": "React Vite Frontend Portal",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "postCreateCommand": "pip install -r backend/requirements.txt && npm --prefix frontend install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.debugpy"
+      ]
+    }
+  }
+}
