@@ -7,7 +7,6 @@ import { EmployeePortal } from './pages/EmployeePortal';
 import { Settings } from './pages/Settings';
 import { ThemeSelector } from './components/ThemeSelector';
 import {
-  ShieldCheck,
   Users,
   LayoutDashboard,
   Settings as SettingsIcon,
@@ -398,11 +397,6 @@ export const App: React.FC = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             {/* Live Theme Switcher */}
             <ThemeSelector />
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--color-success)', background: 'var(--color-success-bg)', padding: '4px 10px', borderRadius: 9999, fontSize: '0.8rem' }}>
-              <ShieldCheck size={14} />
-              <span>SOC2 Audit Active</span>
-            </div>
           </div>
         </header>
 
