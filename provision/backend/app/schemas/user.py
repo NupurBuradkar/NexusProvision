@@ -39,13 +39,22 @@ class UserLogin(BaseModel):
     password: str
 
 
+class EmployeeLoginRequest(BaseModel):
+    email: EmailStr
+    full_name: Optional[str] = None
+    designation: str = Field(default="Senior Backend Engineer")
+    team: Optional[str] = None
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserRead
+    developer_id: Optional[int] = None
 
 
 class TokenPayload(BaseModel):
     sub: Optional[str] = None
     role: Optional[str] = None
+    developer_id: Optional[int] = None
     exp: Optional[int] = None

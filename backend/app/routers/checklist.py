@@ -3,7 +3,7 @@ Checklist Template and Task Completion Management Router.
 """
 
 from typing import Optional, List
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
@@ -110,7 +110,7 @@ def toggle_developer_task(
         )
 
     task.is_completed = payload.is_completed
-    task.completed_at = datetime.utcnow() if payload.is_completed else None
+    task.completed_at = datetime.now(timezone.utc) if payload.is_completed else None
     if payload.notes is not None:
         task.notes = payload.notes
 

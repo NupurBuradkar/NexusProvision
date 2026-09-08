@@ -2,10 +2,14 @@
 SQLAlchemy ORM Model for SOC2 and ISO compliance audit logging.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
+
+
+def utc_now():
+    return datetime.now(timezone.utc)
 
 
 class AuditLog(Base):
@@ -15,12 +19,12 @@ class AuditLog(Base):
     id = Column(Integer, primary_key=True, index=True)
     actor_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True, index=True)
     actor_email = Column(String(255), nullable=True, index=True)
-    action = Column(String(100), nullable=False, index=True)        # e.g., "DEVELOPER_CREATED", "ACCESS_GRANTED"
-    target_type = Column(String(100), nullable=False, index=True)   # e.g., "Developer", "AccessGrant", "RepoRequest"
+    action = Column(String(100), nullable=False, index=True)
+    target_type = Column(String(100), nullable=False, index=True)
     target_id = Column(String(100), nullable=True, index=True)
-    details = Column(Text, nullable=True)                          # JSON payload string
+    details = Column(Text, nullable=True)
     ip_address = Column(String(50), nullable=True)
-    timestamp = Column(DateTime, default=datetime.utcnow, nullable=False, index=True)
+    timestamp = Column(DateTime, default=utc_now, nullable=False, index=True)
 
     # Relationships
     actor = relationship("User", back_populates="audit_logs")

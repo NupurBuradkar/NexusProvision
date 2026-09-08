@@ -13,7 +13,7 @@ import {
   Page,
 } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '/api/v1';
 
 class ApiClient {
   private getHeaders(): HeadersInit {
@@ -65,13 +65,30 @@ class ApiClient {
 
   // Authentication
   public auth = {
-    login: async (email: string, password: string): Promise<AuthResponse> => {
-      const res = await this.request<AuthResponse>('/auth/login', {
+    login: async (email: string, password: string): Promise<AuthResponse & { developer_id?: number }> => {
+      const res = await this.request<AuthResponse & { developer_id?: number }>('/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       });
       localStorage.setItem('seqa_token', res.access_token);
       localStorage.setItem('seqa_user', JSON.stringify(res.user));
+      if (res.developer_id) {
+        localStorage.setItem('seqa_dev_id', res.developer_id.toString());
+      } else {
+        localStorage.removeItem('seqa_dev_id');
+      }
+      return res;
+    },
+    employeeLogin: async (data: { email: string; full_name?: string; designation: string; team?: string }): Promise<AuthResponse & { developer_id?: number }> => {
+      const res = await this.request<AuthResponse & { developer_id?: number }>('/auth/employee-login', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      localStorage.setItem('seqa_token', res.access_token);
+      localStorage.setItem('seqa_user', JSON.stringify(res.user));
+      if (res.developer_id) {
+        localStorage.setItem('seqa_dev_id', res.developer_id.toString());
+      }
       return res;
     },
     getMe: async (): Promise<User> => {
@@ -80,6 +97,7 @@ class ApiClient {
     logout: () => {
       localStorage.removeItem('seqa_token');
       localStorage.removeItem('seqa_user');
+      localStorage.removeItem('seqa_dev_id');
       window.dispatchEvent(new Event('seqa-auth-logout'));
     },
   };

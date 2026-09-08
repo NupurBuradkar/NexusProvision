@@ -2,10 +2,14 @@
 SQLAlchemy ORM Models for Checklist Templates and Developer Checklist Status.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
+
+
+def utc_now():
+    return datetime.now(timezone.utc)
 
 
 class ChecklistTemplateItem(Base):
@@ -15,11 +19,11 @@ class ChecklistTemplateItem(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), nullable=False)
     description = Column(Text, nullable=True)
-    category = Column(String(100), default="Dev Environment", nullable=False)  # Security, Hardware, Dev Environment, HR, Knowledge
-    team = Column(String(100), nullable=True)  # Null applies to all teams, or specific like "Backend"
+    category = Column(String(100), default="Dev Environment", nullable=False)
+    team = Column(String(100), nullable=True)
     is_required = Column(Boolean, default=True, nullable=False)
     sort_order = Column(Integer, default=0, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
 
 class DeveloperChecklistStatus(Base):
@@ -35,8 +39,8 @@ class DeveloperChecklistStatus(Base):
     is_completed = Column(Boolean, default=False, nullable=False, index=True)
     completed_at = Column(DateTime, nullable=True)
     notes = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 
     # Relationships
     developer = relationship("Developer", back_populates="checklist_tasks")

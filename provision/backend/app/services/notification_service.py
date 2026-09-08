@@ -4,11 +4,11 @@ Notification Service for Slack webhooks and enterprise event alerting.
 
 import logging
 from typing import Optional, Dict, Any, List
-from datetime import datetime
+from datetime import datetime, timezone
 import httpx
 from app.config import settings
 
-logger = logging.getLogger("seqa.notifications")
+logger = logging.getLogger("nexus.notifications")
 
 
 class NotificationService:
@@ -33,7 +33,7 @@ class NotificationService:
             "message": message,
             "severity": severity,
             "metadata": metadata or {},
-            "timestamp": datetime.utcnow().isoformat(),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
         }
         
         # Keep latest 100 in history
@@ -55,8 +55,8 @@ class NotificationService:
                                 {"title": k, "value": str(v), "short": True}
                                 for k, v in (metadata or {}).items()
                             ],
-                            "footer": "SEQA Provision Notification",
-                            "ts": int(datetime.utcnow().timestamp()),
+                            "footer": "NexusProvision Notification",
+                            "ts": int(datetime.now(timezone.utc).timestamp()),
                         }
                     ],
                 }

@@ -2,10 +2,14 @@
 SQLAlchemy ORM Models for Access Systems Catalog and Developer Entitlement Grants.
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
+
+
+def utc_now():
+    return datetime.now(timezone.utc)
 
 
 class AccessSystem(Base):
@@ -16,9 +20,9 @@ class AccessSystem(Base):
     name = Column(String(100), unique=True, nullable=False, index=True)
     category = Column(String(100), default="Cloud Infrastructure", nullable=False)
     description = Column(Text, nullable=True)
-    icon_key = Column(String(50), default="cloud", nullable=False)  # "aws", "github", "slack", "datadog", "jira", "vault"
+    icon_key = Column(String(50), default="cloud", nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
 
 class AccessGrant(Base):
@@ -34,8 +38,8 @@ class AccessGrant(Base):
     granted_at = Column(DateTime, nullable=True)
     revoked_at = Column(DateTime, nullable=True)
     notes = Column(Text, nullable=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
+    updated_at = Column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
 
     # Relationships
     developer = relationship("Developer", back_populates="access_grants")

@@ -4,7 +4,7 @@ Handles repo requests, automated repository creation, collaborator grants, and b
 """
 
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from app.database import get_db
@@ -138,7 +138,7 @@ def trigger_repository_provisioning(
 
         repo.status = "ready"
         repo.github_url = result.get("github_url")
-        repo.provisioned_at = datetime.utcnow()
+        repo.provisioned_at = datetime.now(timezone.utc)
         repo.error_message = None
         db.commit()
         db.refresh(repo)

@@ -4,7 +4,7 @@ Provides systems catalog and grant/revocation endpoints with full audit trail.
 """
 
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from app.database import get_db
@@ -123,7 +123,7 @@ def create_access_grant(
         existing.status = payload.status
         existing.access_level = payload.access_level
         existing.granted_by_user_id = current_user.id
-        existing.granted_at = datetime.utcnow() if payload.status == "active" else None
+        existing.granted_at = datetime.now(timezone.utc) if payload.status == "active" else None
         existing.notes = payload.notes or existing.notes
         db.commit()
         db.refresh(existing)
@@ -135,7 +135,7 @@ def create_access_grant(
             granted_by_user_id=current_user.id,
             status=payload.status,
             access_level=payload.access_level,
-            granted_at=datetime.utcnow() if payload.status == "active" else None,
+            granted_at=datetime.now(timezone.utc) if payload.status == "active" else None,
             notes=payload.notes,
         )
         db.add(grant)
@@ -177,10 +177,10 @@ def update_access_grant(
     if payload.status:
         grant.status = payload.status
         if payload.status == "active":
-            grant.granted_at = datetime.utcnow()
+            grant.granted_at = datetime.now(timezone.utc)
             grant.granted_by_user_id = current_user.id
         elif payload.status == "revoked":
-            grant.revoked_at = datetime.utcnow()
+            grant.revoked_at = datetime.now(timezone.utc)
 
     if payload.access_level:
         grant.access_level = payload.access_level

@@ -12,7 +12,7 @@ import os
 
 class Settings(BaseSettings):
     # Base Application Configuration
-    PROJECT_NAME: str = "SEQA Developer Onboarding & Provisioning Platform"
+    PROJECT_NAME: str = "NexusProvision | Developer Onboarding & Cloud Provisioning"
     ENVIRONMENT: str = "development"
     API_V1_PREFIX: str = "/api/v1"
 
@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./provision.db"
 
     # Security & JWT Configuration
-    JWT_SECRET: str = "seqa_enterprise_jwt_secret_key_change_in_production_2026!"
+    JWT_SECRET: str = "nexus_enterprise_jwt_secret_key_change_in_production_2026!"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
 
