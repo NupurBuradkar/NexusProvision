@@ -293,10 +293,12 @@ Enterprise orchestration system automating developer lifecycle management:
     )
 
     # Configure CORS
+    cors_origins = settings.CORS_ORIGINS if isinstance(settings.CORS_ORIGINS, list) else ["*"]
+    is_wildcard = cors_origins == ["*"] or cors_origins == "*"
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.CORS_ORIGINS if isinstance(settings.CORS_ORIGINS, list) else ["*"],
-        allow_credentials=True,
+        allow_origins=cors_origins,
+        allow_credentials=not is_wildcard,
         allow_methods=["*"],
         allow_headers=["*"],
     )

@@ -13,7 +13,10 @@ import {
   Page,
 } from '../types';
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '/api/v1';
+const RAW_API_URL = ((import.meta as any).env?.VITE_API_BASE_URL || '').trim();
+const API_BASE_URL = RAW_API_URL
+  ? (RAW_API_URL.endsWith('/api/v1') ? RAW_API_URL : `${RAW_API_URL.replace(/\/+$/, '')}/api/v1`)
+  : '/api/v1';
 
 class ApiClient {
   private getHeaders(): HeadersInit {
