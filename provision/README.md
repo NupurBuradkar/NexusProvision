@@ -1,13 +1,13 @@
-# SEQA Provision: Enterprise Developer Onboarding & IT Provisioning Platform
+# NexusProvision: Enterprise Developer Onboarding & Cloud Provisioning Orchestration
 
-[![CI Pipeline](https://github.com/seqa/provision/actions/workflows/ci.yml/badge.svg)](https://github.com/seqa/provision/actions)
+[![CI Pipeline](https://github.com/nexusprovision/platform/actions/workflows/ci.yml/badge.svg)](https://github.com/nexusprovision/platform/actions)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688.svg?logo=fastapi)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18-61DAFB.svg?logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6.svg?logo=typescript)](https://www.typescriptlang.org)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?logo=docker)](https://www.docker.com)
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB.svg?logo=python)](https://www.python.org)
 
-**SEQA Provision** is an enterprise-grade Developer Onboarding & IT Entitlement Orchestration Platform designed by Senior Python Fullstack Engineers. It centralizes engineering onboarding, automates role-tailored checklists, coordinates cloud entitlements (AWS, Slack, Datadog, Jira), triggers automated GitHub repository provisioning with branch protections, and maintains an immutable SOC2-compliant compliance audit trail.
+**NexusProvision** is an enterprise-grade Developer Onboarding & Cloud Entitlement Orchestration Platform designed by Senior Python Fullstack Engineers. It centralizes engineering onboarding, automates role-tailored checklists, coordinates cloud entitlements (AWS, Slack, Datadog, Jira, Vault), triggers automated GitHub repository provisioning with branch protections, maintains an immutable SOC2-compliant compliance audit trail, and offers a dual portal for Administrators and Employees with designation-tailored access and a real-time multi-theme engine.
 
 ---
 
@@ -16,12 +16,14 @@
 2. [High-Level Architecture](#high-level-architecture)
 3. [Exhaustive File Structure & File Guide](#exhaustive-file-structure--file-guide)
 4. [Quickstart & Running Locally](#quickstart--running-locally)
-   - [Option 1: 1-Command Docker Compose (Recommended)](#option-1-1-command-docker-compose-recommended)
-   - [Option 2: Standalone Local Development (No Docker Required)](#option-2-standalone-local-development-no-docker-required)
+   - [Option 1: Standalone Local Development (No Docker Required)](#option-1-standalone-local-development-no-docker-required)
+   - [Option 2: 1-Command Docker Compose](#option-2-1-command-docker-compose)
 5. [Default Pre-Seeded Credentials & Roles](#default-pre-seeded-credentials--roles)
-6. [API Endpoints Reference](#api-endpoints-reference)
-7. [Automated Testing Suite](#automated-testing-suite)
-8. [SOC2 Compliance & Security Design](#soc2-compliance--security-design)
+6. [Dual Login & Designation Selection](#dual-login--designation-selection)
+7. [Multi-Theme Engine](#multi-theme-engine)
+8. [API Endpoints Reference](#api-endpoints-reference)
+9. [Automated Testing Suite](#automated-testing-suite)
+10. [SOC2 Compliance & Security Design](#soc2-compliance--security-design)
 
 ---
 
@@ -33,13 +35,13 @@ In engineering organizations, onboarding a new software engineer takes anywhere 
 - **Unstandardized Repositories**: Repositories are created manually without standardized branch protections, code owners, or automated collaborator permissions.
 - **Audit & Compliance Gaps**: Companies fail SOC2 or ISO 27001 audits because there is no single source of truth recording who approved or granted access to sensitive cloud systems.
 
-### How SEQA Provision Solves This:
-1. **Automated Onboarding Workflows**: When a developer is registered (name, team, role, seniority, GitHub handle), default onboarding checklists are instantiated automatically tailored to their department (Backend, Frontend, DevOps, etc.).
-2. **Access Provisioning & Entitlement Management**: One-click provisioning and revocation for internal and third-party systems (AWS IAM / SSO, GitHub Org, Slack channels, Jira, Datadog, Vault) with role-based policies, expiration dates, and approval tracking.
-3. **Automated Repository Provisioning**: Developers/Tech Leads can request new project repositories directly through the platform. The system connects with GitHub's REST API to automatically provision repositories with standardized templates, team collaborator permissions (Admin/Push), default branch protection rules (`main` PR review required), and team webhook setups.
-4. **Compliance & Audit Logging**: SOX / SOC2-ready immutable audit trail tracking who requested, approved, granted, or revoked every access grant and repository operation, timestamped with user IDs and IP addresses.
-5. **Real-time Onboarding Analytics**: Overview dashboard displaying active onboardings, velocity metrics, pending access requests, repo provisioning health, and team onboarding velocities.
-6. **Role-Based Access Control (RBAC)**: Secure multi-role access (`admin`, `manager`, `viewer`) enforced via JWT bearer authentication and granular permissions.
+### How NexusProvision Solves This:
+1. **Dual Portal & Designation-Based Onboarding**: Administrators manage organization cohorts, cloud systems, and audit logs. Employees log into a personalized portal tailored to their specific designation (*Backend, Frontend, SRE, Data, Security, Mobile*) to track tasks and entitlements.
+2. **Automated Onboarding Workflows**: Dynamic checklists are instantiated automatically tailored to the engineer's department.
+3. **Access Provisioning & Entitlement Management**: One-click provisioning and revocation for cloud systems (AWS IAM, GitHub Org, Slack, Jira, Datadog, Vault) with audit tracking.
+4. **Automated Repository Provisioning**: Connects with GitHub's REST API to provision repositories with standardized templates, team collaborator permissions, default branch protections (`main` PR review required), and webhooks.
+5. **Compliance & Audit Logging**: SOC2-ready immutable audit trail tracking all actions with actor emails, timestamps, and JSON diffs.
+6. **Live Multi-Theme Customization**: 4 themes (Cyber Dark, Midnight OLED, Nordic Light, Sunset Amber) with persistent preferences.
 
 ---
 
