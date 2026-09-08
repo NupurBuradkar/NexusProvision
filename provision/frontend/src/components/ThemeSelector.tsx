@@ -11,10 +11,10 @@ interface ThemeOption {
 }
 
 const THEMES: ThemeOption[] = [
-  { id: 'cyber-dark', label: 'Cyber Dark', icon: '🌌', color: '#6366f1' },
-  { id: 'midnight-oled', label: 'Midnight OLED', icon: '⬛', color: '#10b981' },
-  { id: 'nordic-light', label: 'Nordic Frost (Light)', icon: '❄️', color: '#4f46e5' },
-  { id: 'sunset-amber', label: 'Sunset Amber', icon: '🌅', color: '#f59e0b' },
+  { id: 'cyber-dark', label: 'Nebula Obsidian', icon: '🌌', color: '#818cf8' },
+  { id: 'midnight-oled', label: 'Cyber Emerald', icon: '⚡', color: '#2dd4bf' },
+  { id: 'nordic-light', label: 'Alabaster Studio (Light)', icon: '🏛️', color: '#6366f1' },
+  { id: 'sunset-amber', label: 'Dune Rose Noir', icon: '🌅', color: '#fb923c' },
 ];
 
 export const ThemeSelector: React.FC = () => {
