@@ -34,8 +34,11 @@ services:
     staticPublishPath: dist
     routes:
       - type: rewrite
+        source: /api/*
+        destination: https://nexus-provision-backend.onrender.com/api/*
+      - type: rewrite
         source: /*
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        value: https://nexus-provision-backend.onrender.com
+        value: ""
