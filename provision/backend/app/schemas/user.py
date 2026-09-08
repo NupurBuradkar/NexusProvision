@@ -10,7 +10,8 @@ from pydantic import BaseModel, EmailStr, ConfigDict, Field
 class UserBase(BaseModel):
     email: EmailStr
     full_name: str = Field(..., min_length=2, max_length=255)
-    role: str = Field(default="manager", pattern="^(admin|manager|viewer)$")
+    role: str = Field(default="manager", pattern="^(admin|manager|viewer|developer)$")
+    designation: Optional[str] = None
     is_active: bool = True
 
 
