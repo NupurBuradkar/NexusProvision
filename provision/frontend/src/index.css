@@ -181,7 +181,6 @@ body {
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   min-height: 100vh;
   transition: background-color 0.25s ease, color 0.25s ease;
@@ -235,7 +234,9 @@ body {
   letter-spacing: -0.02em;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .brand-subtitle {
@@ -310,7 +311,8 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background: radial-gradient(circle at 50% 0%, var(--bg-tag) 0%, transparent 60%), var(--bg-app);
+  background-color: var(--bg-app);
+  background-image: radial-gradient(circle at 50% 0%, var(--bg-tag) 0%, transparent 60%);
 }
 
 .top-navbar {
@@ -774,7 +776,8 @@ body {
 
 /* Employee Banner */
 .employee-header-banner {
-  background: var(--gradient-card), var(--bg-card);
+  background-color: var(--bg-card);
+  background-image: var(--gradient-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 24px;
