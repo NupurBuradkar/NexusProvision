@@ -259,7 +259,7 @@ def seed_database(db: Session):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Lifespan context manager for database initialization and cleanup."""
-    logger.info("Starting up SEQA Developer Onboarding & Provisioning Platform...")
+    logger.info("Starting up NexusProvision Platform...")
     Base.metadata.create_all(bind=engine)
     
     db = SessionLocal()
@@ -270,7 +270,7 @@ async def lifespan(app: FastAPI):
         
     yield
     
-    logger.info("Shutting down SEQA Platform...")
+    logger.info("Shutting down NexusProvision Platform...")
 
 
 def create_application() -> FastAPI:
@@ -278,10 +278,10 @@ def create_application() -> FastAPI:
     app = FastAPI(
         title=settings.PROJECT_NAME,
         description="""
-# SEQA Developer Onboarding & Provisioning Platform API
+# NexusProvision: Developer Onboarding & Cloud Provisioning Platform API
 Enterprise orchestration system automating developer lifecycle management:
 - **Onboarding Checklists**: Template-driven task workflows with team-level scoping.
-- **System Entitlements**: Cloud access provisioning (AWS, Slack, Datadog, Jira) with full audit trail.
+- **System Entitlements**: Cloud access provisioning (AWS, Slack, Datadog, Jira, Vault) with full audit trail.
 - **Repository Automation**: Standardized GitHub repo creation, branch protection, and collaborator permissions.
 - **SOC2 Compliance**: Immutable audit logging and RBAC (Admin, Manager, Viewer).
         """,
